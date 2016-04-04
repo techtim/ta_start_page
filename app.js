@@ -1,9 +1,9 @@
 //
-//  Summer Breath
-//	http://www.alexeyrudenko.com/
+//  "TA create"s widget
+//	http://www.arthew0.ru/
 //
-//  Created by Alexey Roudenko on 07/06/15.
-//  Copyright (c) 2015 Alexey Roudenko. All rights reserved.
+//  Created by Alexey Roudenko on 03/03/16.
+//  Copyright (c) 2016 Alexey Roudenko. All rights reserved.
 //
 
 var doShader = true;
@@ -35,8 +35,8 @@ function initGL() {
 	  return (req.status == 200) ? req.responseText : null;
 	};
 
-	var vertexShader = getSourceSynch("static/imenu/shader.vert");
-	var fragmentShader = getSourceSynch("static/imenu/shader.frag");
+	var vertexShader = getSourceSynch("shader.vert");
+	var fragmentShader = getSourceSynch("shader.frag");
 
 	container = document.getElementById('container');
 	
@@ -82,7 +82,7 @@ function initGL() {
 
 	sprites  = new Array();
 	for (var i = 0; i < count; i++) { 
-		var spriteImg = THREE.ImageUtils.loadTexture("static/imenu/img/ico_0" + (i + 1) + ".png");
+		var spriteImg = THREE.ImageUtils.loadTexture("img/ico_0" + (i + 1) + ".png");
 		var material = new THREE.SpriteMaterial({map: spriteImg});
 		sprite = new THREE.Sprite(material);
 		scene.add(sprite);
@@ -90,7 +90,7 @@ function initGL() {
 	}
 
 
-	var spriteCenterImg = THREE.ImageUtils.loadTexture("static/imenu/img/ico_center.png");
+	var spriteCenterImg = THREE.ImageUtils.loadTexture("img/ico_center.png");
 	var materialC = new THREE.SpriteMaterial({map: spriteCenterImg});
 	spriteCenter = new THREE.Sprite(materialC);
 	scene.add(spriteCenter);
@@ -245,6 +245,7 @@ function render() {
 	lineGeometry.verticesNeedUpdate = true;	
 	lineGeometry.normalsNeedUpdate = true;
 	
-	renderer.render(scene, camera);
+	if (params.doRender) renderer.render(scene, camera);
+
 	initValue++;
 }

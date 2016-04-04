@@ -112,6 +112,10 @@ function updateTargets(updateStart) {
 
 function update() {
 
+	if (params.doIddle) {
+		checkIddle();
+	}
+
 	updateTargets(false);
 
 	var coordX = 0;

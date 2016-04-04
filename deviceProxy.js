@@ -26,25 +26,76 @@ function setupDevice() {
 	document.body.addEventListener('touchend', onEndTouch);
 }
 
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- IDDLE --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+
+var params = {
+	doIddle:true,
+	isIddle:true,
+	doRender:true,
+	doShader:true,
+	doLines:false,
+	doParticles:true,
+	doPhysics:true
+};
+
+var date = new Date()
+var lastMouseTime = date.getTime() * 0.001;
+var deltaTime = 0;
+
+function cleanIddle() {
+	var date = new Date()
+	lastMouseTime = date.getTime() * 0.001;
+}
+
+function checkIddle() {
+	var date = new Date()
+	deltaTime = date.getTime() * 0.001 - lastMouseTime;
+
+	if (deltaTime > 5) {
+		params.isIddle = true;
+	} else {
+		params.isIddle = false;
+	}
+
+	params.doRender = !params.isIddle;
+	params.doShader = !params.isIddle;
+	params.doParticles = !params.isIddle;
+	params.doPhysics = !params.isIddle;
+}
+
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+/* -------------------------------------------- ----- --------------------------------------------*/
+
 function onMouseDown(e) {
 	infoObject.x = e.pageX * window.devicePixelRatio;
 	infoObject.y = e.pageY * window.devicePixelRatio;
 	checkPress();
 	e.preventDefault();
+	cleanIddle();
 }
 
 function onMouseMove(e) {
 	infoObject.x = e.pageX * window.devicePixelRatio;
 	infoObject.y = e.pageY * window.devicePixelRatio;
 	e.preventDefault();
+	cleanIddle();
 }
 
 function onMouseUp(e) {
 	checkRelease();
 	e.preventDefault();
 		infoObject.x = -1;
-	infoObject.y = -1;	
-
+	infoObject.y = -1;
+	cleanIddle();	
 }
 
 
@@ -54,6 +105,7 @@ function onTouchStart(e) {
 	infoObject.y = touch.pageY * window.devicePixelRatio;
 	checkPress();
 	e.preventDefault();
+	cleanIddle();
 }
 
 function onEndTouch(e) {
@@ -61,6 +113,7 @@ function onEndTouch(e) {
 	infoObject.x = -1;
 	infoObject.y = -1;	
 	e.preventDefault();
+	cleanIddle();
 }
 
 function onTouchMove(e) {
@@ -68,5 +121,6 @@ function onTouchMove(e) {
 	infoObject.x = touch.pageX * window.devicePixelRatio;
 	infoObject.y = touch.pageY * window.devicePixelRatio;
 	e.preventDefault();
+	cleanIddle();
 }
 
