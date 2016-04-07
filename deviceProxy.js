@@ -3,7 +3,7 @@
 //
 //  Created by Alexey Roudenko on 3/13. www.alexeyrudenko.com
 //  Copyright (c) 2012. All rights reserved.
-// 
+//
 
 console.log("hello from deviceProxy");
 
@@ -13,27 +13,23 @@ function setupDevice() {
 		document.captureEvents(Event.MOUSEMOVE);
 		document.captureEvents(Event.MOUSELEAVE);
 	}
-	
+
 	document.mouseleave = onEndTouch;
-
-
 	document.onmousedown = onMouseDown;
 	document.onmousemove = onMouseMove;
 	document.onmouseup = onMouseUp;
-	
+
 	document.body.addEventListener('touchstart', onTouchStart);
 	document.body.addEventListener('touchmove', onTouchMove);
 	document.body.addEventListener('touchend', onEndTouch);
 }
 
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- IDDLE --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-
+/* --------------------------------------------------------------
+# iddle logic
+#
+#
+#
+# -------------------------------------------------------------- */
 var params = {
 	doIddle:true,
 	isIddle:true,
@@ -57,7 +53,7 @@ function checkIddle() {
 	var date = new Date()
 	deltaTime = date.getTime() * 0.001 - lastMouseTime;
 
-	if (deltaTime > 5) {
+	if (deltaTime > 10) {
 		params.isIddle = true;
 	} else {
 		params.isIddle = false;
@@ -69,12 +65,15 @@ function checkIddle() {
 	params.doPhysics = !params.isIddle;
 }
 
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
-/* -------------------------------------------- ----- --------------------------------------------*/
 
+
+
+/* --------------------------------------------------------------
+# events
+#
+#
+#
+# -------------------------------------------------------------- */
 function onMouseDown(e) {
 	infoObject.x = e.pageX * window.devicePixelRatio;
 	infoObject.y = e.pageY * window.devicePixelRatio;
@@ -93,9 +92,9 @@ function onMouseMove(e) {
 function onMouseUp(e) {
 	checkRelease();
 	e.preventDefault();
-		infoObject.x = -1;
+	infoObject.x = -1;
 	infoObject.y = -1;
-	cleanIddle();	
+	cleanIddle();
 }
 
 
@@ -111,7 +110,7 @@ function onTouchStart(e) {
 function onEndTouch(e) {
 	checkRelease();
 	infoObject.x = -1;
-	infoObject.y = -1;	
+	infoObject.y = -1;
 	e.preventDefault();
 	cleanIddle();
 }
@@ -123,4 +122,3 @@ function onTouchMove(e) {
 	e.preventDefault();
 	cleanIddle();
 }
-
